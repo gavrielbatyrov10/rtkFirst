@@ -1,14 +1,18 @@
-// src/PlayerList.js
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addPlayer, removePlayer } from "./playerSlice";
 
-const PlayerList = () => {
+const App = () => {
   const players = useSelector((state) => state.players);
   const dispatch = useDispatch();
 
   const handleAddPlayer = () => {
-    const newPlayer = { id: players.length + 1, name: "New Player" };
+    // Replace "New Player" and "default-image-url" with the desired name and image URL
+    const newPlayer = {
+      id: players.id,
+      name: players.name,
+      imageUrl: players.imageUrl,
+    };
     dispatch(addPlayer(newPlayer));
   };
 
@@ -20,17 +24,13 @@ const PlayerList = () => {
     <div>
       <button onClick={handleAddPlayer}>Add Player</button>
       <ul>
-        {players.map((player) => (
-          <li key={player.id}>
-            {player.name}
-            <button onClick={() => handleRemovePlayer(player.id)}>
-              Remove
-            </button>
-          </li>
-        ))}
+        <li key={players.id}>
+          {players.name}
+          <button onClick={() => handleRemovePlayer(players.id)}>Remove</button>
+        </li>
       </ul>
     </div>
   );
 };
 
-export default PlayerList;
+export default App;

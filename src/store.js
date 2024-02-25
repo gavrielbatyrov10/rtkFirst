@@ -1,10 +1,15 @@
-import { configureStore } from "@reduxjs/toolkit";
+// store.js
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import api from "./api";
+import playerSlice from "./playerSlice";
+
+const rootReducer = combineReducers({
+  [api.reducerPath]: api.reducer,
+  players: playerSlice.reducer,
+});
 
 const store = configureStore({
-  reducer: {
-    [api.reducerPath]: api.reducer,
-  },
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(api.middleware),
 });
